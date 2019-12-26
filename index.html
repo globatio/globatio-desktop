@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+  
+          .start-switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          .start-icon {
+            font-size:150px;
+            color: gray;
+          }
+
+          input:checked + .start-icon {
+            color:orangered;
+          }
+        </style>
+
+        <title>globatio desktop</title>
+      </head>
+
+<body>
+<div class="content">
+  <div class="navigation">
+		<li><a class="active" href="index.html">Mining</a></li>
+		<li><a href="wallet.html">Wallet</a></li>
+		<li><a href="send.html">Send coins</a></li>
+	</div>
+
+  <table>
+<br>
+    <tr style="position:relative;left:20px;top:80px;">
+      <td>
+        <label class="start-switch">
+          <input type="checkbox" id="start-checkbox-id"  onclick="start()">
+          <span class="start-icon">
+              <i class="fas fa-power-off"></i>
+          </span>
+        </label><br><br>
+
+      </td>
+      <td>
+        <p id="mining-status-id" style="display: inline;">Mining Stopped</p><br>
+        Mining duration <p id="mining-duration-id" style="display: inline;" ></p><br>
+        Mining reward claimed <p id="mining-reward-id" style="display: inline;" ></p><br><br>
+        Wallet balance <p id="wallet-balance-id" style="display: inline;" ></p><br>
+      </td>
+    </tr>
+  
+  </table>
+</div>
+<script>
+const { ipcRenderer } = require('electron')
+refreshDashboard()
+
+var myVar = setInterval(refreshDashboard, 1000);
+
+function refreshDashboard() {
+  //ipcRenderer.send('asynchronous-get-mining-information-request', 'ping')
+  let arg=ipcRenderer.sendSync('get-mining-information-request', 'ping')
+
+  //---------------------------------------------------------------------------
+//ipcRenderer.on('asynchronous-get-mining-information-reply', (event, arg) => {
+
+  var checkBox = document.getElementById("start-checkbox-id");
+  var text = document.getElementById("mining-status-id");  
+  checkBox.checked =arg.miningstatus
+  if (checkBox.checked == true) {
+    //var miningstartdate = new Date();
+    text.innerText = "Mining started on "+new Date();
+  } else {
+     text.innerText = "Mining stopped";
+  }
+
+
+
+  //console.log('mining information',arg) // prints "pong"
+  document.getElementById("mining-duration-id").innerText=arg.duration
+  if (arg.miningreward>1000000000000){
+    document.getElementById("mining-reward-id").innerText=arg.miningreward/1000000000000+' tera globatios'
+  } else if (arg.miningreward>1000000000){
+    document.getElementById("mining-reward-id").innerText=arg.miningreward/1000000000+' giga globatios'
+  } else if (arg.miningreward>1000000){
+    document.getElementById("mining-reward-id").innerText=arg.miningreward/1000000+' mega globatios'
+  } else if (arg.miningreward>1000){
+    document.getElementById("mining-reward-id").innerText=arg.miningreward/1000+' kilo globatios'
+  }
+  
+
+ 
+ if (arg.walletbalance>1000000000000){
+   document.getElementById("wallet-balance-id").innerText=arg.walletbalance/1000000000000+' tera globatios'
+ }else if (arg.walletbalance>1000000000){
+   document.getElementById("wallet-balance-id").innerText=arg.walletbalance/1000000000+' giga globatios'
+ }else if (arg.walletbalance>1000000){
+   document.getElementById("wallet-balance-id").innerText=arg.walletbalance/1000000+' mega globatios'
+ } else if (arg.walletbalance>1000){
+   document.getElementById("wallet-balance-id").innerText=arg.walletbalance/1000+' kilo globatios'
+ } 
+ 
+
+//})
+
+  //---------------------------------------------------------------------------
+
+}
+
+
+
+
+
+function start() {
+  var checkBox = document.getElementById("start-checkbox-id");
+  var text = document.getElementById("mining-status-id");
+  if (checkBox.checked == true) {
+    //var miningstartdate = new Date();
+    text.innerText = "Mining started on "+new Date();
+    ipcRenderer.send('start-mining-request', 'ping')
+  } else {
+     text.innerText = "Mining stopped";
+     ipcRenderer.send('stop-mining-request', 'ping')
+  }
+
+
+
+
+}
+</script>
+
+</body>
+</html>

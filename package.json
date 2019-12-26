@@ -1,0 +1,31 @@
+{
+  "name": "globatio-desktop",
+  "version": "0.1.0",
+  "description": "A globatio wallet along with an integrated lightweight miner",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/globatio/globatio-desktop",
+  "keywords": [
+    "globatio",
+    "miner",
+    "wallet"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.1.4",
+    "electron-packager": "^14.1.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "dat-swarm-defaults": "^1.0.2",
+    "discovery-swarm": "^6.0.0",
+    "get-port": "^5.0.0",
+    "jsonfile": "^5.0.0",
+    "level": "^6.0.0",
+    "merkle-lib": "^2.0.10",
+    "secp256k1": "^3.7.1"
+  }
+}

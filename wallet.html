@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+          .wallet-file-selection input[type=text] {
+            border: 1px solid;
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 14px;
+            width: 500px;
+          }
+
+          .wallet-file-selection button {
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 14px;
+            border: solid 1px;
+            cursor: pointer;
+          }
+          
+          .wallet-file-generation button {
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 14px;
+            border: solid 1px;
+            cursor: pointer;
+          }
+        </style>
+
+        <title>globatio desktop</title>
+      </head>
+
+<body>
+<div class="content">
+  <div class="navigation">
+		<li><a href="index.html">Mining</a></li>
+		<li><a class="active" href="wallet.html">Wallet</a></li>
+		<li><a href="send.html">Send coins</a></li>
+	</div>
+  <br>Wallet path file:
+  <table>
+
+ 
+        <div class="wallet-file-selection" >
+          <input type="text" id="wallet-file-location-id" placeholder="" disabled>
+          <button onclick="chooseWallet()">Choose wallet</button>
+        </div>
+
+    <tr>
+        <div class="wallet-file-generation" >
+        <button onclick="generateWallet()">Generate new wallet</button> 
+        </div>
+    </tr>
+
+  </table>
+</div>
+<script>
+const { ipcRenderer } = require('electron')
+
+
+/*
+ipcRenderer.on('asynchronous-return-wallet-file-reply', (event, arg) => {
+  //console.log('wallet file opened',arg) // prints "pong"
+  document.getElementById("wallet-file-location-id").value=arg
+})
+*/
+document.getElementById("wallet-file-location-id").value=ipcRenderer.sendSync('return-wallet-file-request', 'ping')
+
+function chooseWallet(){
+  document.getElementById("wallet-file-location-id").value=ipcRenderer.sendSync('set-wallet-file-request', 'ping')
+
+}
+function generateWallet(){
+  
+  document.getElementById("wallet-file-location-id").value=ipcRenderer.sendSync('generate-wallet-file-request', 'ping')
+  /*ipcRenderer.on('asynchronous-generate-wallet-file-reply', (event, arg) => {
+  //console.log('wallet file opened',arg) // prints "pong"
+  document.getElementById("wallet-file-location-id").value= arg
+})*/
+
+
+
+
+}
+
+</script>
+
+</body>
+</html>

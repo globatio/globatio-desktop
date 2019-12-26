@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+          .recipient-publickey input[type=text] {
+            border: 1px solid;
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 14px;
+            width: 500px;
+          }
+
+          .recipient-publickey button {
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 1px;
+            background: #ddd;
+            font-size: 14px;
+            border: solid 1px;
+            cursor: pointer;
+          }
+          .amount input[type=text] {
+            border: 1px solid;
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 14px;
+            width: 200px;
+          }
+          
+          .send button {
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-right: 16px;
+            background: #ddd;
+            font-size: 14px;
+            border: solid 1px;
+            cursor: pointer;
+          }
+        </style>
+
+        <title>globatio desktop</title>
+      </head>
+
+<body>
+<div class="content">
+  <div class="navigation">
+		<li><a href="index.html">Mining</a></li>
+		<li><a href="wallet.html">Wallet</a></li>
+		<li><a class="active" href="send.html">Send coins</a></li>
+	</div>
+  
+  <br>Send to:
+  <table>
+        
+        <div class="recipient-publickey" >
+          <input type="text" id="recipient-publickey-id" placeholder="">
+          <button onclick="pasteClipboad()">Paste</button>
+            <button onclick="copyToClipboad()">Copy</button>
+              <button onclick="cleanClipboad()">Clean</button>
+          
+        </div>
+ <br><br>Amount:
+        <div class="amount" >
+          <input type="text" id="amount-id" placeholder="">
+        </div>
+
+    <tr>
+        <div class="send" >
+        <button onclick="setupTransaction()">Send</button> 
+        </div>
+    </tr>
+
+  </table>
+</div>
+<script>
+const { ipcRenderer } = require('electron')
+const { clipboard } = require('electron')
+function pasteClipboad(){
+  document.getElementById("recipient-publickey-id").value=clipboard.readText()
+}
+
+function copyToClipboad(){
+  clipboard.writeText(document.getElementById("recipient-publickey-id").value)
+}
+function cleanClipboad(){
+  document.getElementById("recipient-publickey-id").value=''
+}
+function setupTransaction(){
+  let requestedtransaction={
+    publickey:document.getElementById("recipient-publickey-id").value,
+    amount:document.getElementById("amount-id").value
+  }
+  ipcRenderer.send('setup-transaction-request', requestedtransaction)
+}
+/*
+ipcRenderer.send('asynchronous-return-wallet-file-request', 'ping')
+
+ipcRenderer.on('asynchronous-return-wallet-file-reply', (event, arg) => {
+  //console.log('wallet file opened',arg) // prints "pong"
+  document.getElementById("wallet-file-location-id").value=arg
+})*/
+/*
+function chooseWallet(){
+
+const {dialog} = require('electron').remote
+
+
+
+
+dialog.showOpenDialog({
+        properties: ['openFile']
+      }).then(result => {
+        ipcRenderer.send('asynchronous-set-wallet-file-request', result.filePaths[0])
+        //document.getElementById("wallet-file-location-id").value=result.filePaths[0]
+        ipcRenderer.on('asynchronous-set-wallet-file-reply', (event, arg) => {
+            //console.log('wallet file opened',arg) // prints "pong"
+            document.getElementById("wallet-file-location-id").value= arg
+          })
+
+      }).catch(err => {
+        console.log(err)
+      })
+//console.log(path)
+//console.log('test')
+}*/
+/*
+function generateWallet(){
+  
+  ipcRenderer.send('asynchronous-generate-wallet-file-request', 'ping')
+  ipcRenderer.on('asynchronous-generate-wallet-file-reply', (event, arg) => {
+  //console.log('wallet file opened',arg) // prints "pong"
+  document.getElementById("wallet-file-location-id").value= arg
+})
+
+
+
+
+}*/
+
+</script>
+
+</body>
+</html>
