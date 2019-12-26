@@ -22,4 +22,3 @@ $ npm install
 ```
 $ npm start
 ```
-Start mining 
