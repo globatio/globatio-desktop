@@ -1,20 +1,20 @@
 const {MAINCHAIN_GENESIS_BLOCK_REWARD,MAINCHAIN_BLOCK_TIME,
     MAINCHAIN_DIFFICULTY_TUNING_INTERVAL,
     MAINCHAIN_REWARD_TUNING_INTERVAL,
-    MAINCHAIN_BLOCK_MAX_SEIZE}=require('./defaults');
+    MAINCHAIN_BLOCK_MAX_SEIZE}=require('./defaults')
   
   
-const Utility = require('./utility');
+const Utility = require('./utility')
 const Transaction =require('./transaction')
-const Block = require('./block');
-const Wallet = require('./wallet');
-const Mainchain = require('./mainchain');
+const Block = require('./block')
+const Wallet = require('./wallet')
+const Mainchain = require('./mainchain')
   
-const AppendableFile = require('./appendablefile');
+const AppendableFile = require('./appendablefile')
   
 const Jsonfile = require('jsonfile')
 
-const fs = require('fs');
+const fs = require('fs')
   
 
 
@@ -28,17 +28,17 @@ class Maincore extends P2PNode{
     constructor(walletfile,mainchainfolder,channel) {
     super(channel)
     console.log('init maincore ',walletfile,mainchainfolder,channel)
-    this.wallet=new Wallet(walletfile);
-    this.mainchain=new Mainchain(mainchainfolder);
+    this.wallet=new Wallet(walletfile)
+    this.mainchain=new Mainchain(mainchainfolder)
 
-        this.difficulty=-1;
-        this.nonce=0
+    this.difficulty=-1
+    this.nonce=0
     this.mainchainfolder=mainchainfolder
-    this.blockreward=-1;
+    this.blockreward=-1
     this.newtransactions=[]
-    this.cachedtransactions=[];
-    this.generatedtransactions=[];
-    this.mining=false;
+    this.cachedtransactions=[]
+    this.generatedtransactions=[]
+    this.mining=false
     this.miningstartdate=-1
     this.miningstopdate=-1
 
@@ -88,14 +88,14 @@ class Maincore extends P2PNode{
     newblock.generateMerkleRoot();
 
 
-      self.nonce++;
+      self.nonce++
       currenttime = Date.now()
-      newblock.nonce=self.nonce;
-      newblock.timestamp=currenttime//Date.now()
+      newblock.nonce=self.nonce
+      newblock.timestamp=currenttime
       //////////////////////////////////////////////////
       newblock.transactions[0].timestamp=currenttime
       //////////////////////////////////////////////////
-      newblock.generateHash();
+      newblock.generateHash()
     //console.log(self.nonce,newblock.hash,target,newblock.hash.localeCompare(target))
                
     if (newblock.hash.localeCompare(target)<0){
@@ -330,14 +330,14 @@ validateLongestMainchainHeaders(mainchainheader){
         if ((((headers[i].id) % MAINCHAIN_DIFFICULTY_TUNING_INTERVAL) == 0)&&((headers[i].id)>1)){
 
 
-                let averageblocktime = 0;
+                let averageblocktime = 0
                 
 
                 let l = headers[i].id
                 for (let k = l-MAINCHAIN_DIFFICULTY_TUNING_INTERVAL+1; k < l; k++) {
                         averageblocktime += this.getSupposedBlockHeader(k).timestamp-this.getSupposedBlockHeader(k-1).timestamp
                 
-                    };
+                    }
                     averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL;
             
                     let tmpdeltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/MAINCHAIN_BLOCK_TIME);
@@ -432,15 +432,15 @@ tuningDifficulty() {
         return
     }
 
-      let averageblocktime = 0;
+      let averageblocktime = 0
 
 
       let j = this.mainchain.chainLength()
       for (let i = j-MAINCHAIN_DIFFICULTY_TUNING_INTERVAL+1; i < j; i++) {
         averageblocktime += this.mainchain.getBlock(i).timestamp-this.mainchain.getBlock(i-1).timestamp
-      };
-      averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL;
-      let deltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/MAINCHAIN_BLOCK_TIME);
+      }
+      averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL
+      let deltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/MAINCHAIN_BLOCK_TIME)
       deltadifficulty=Math.max(Math.min(deltadifficulty,3),-3)
 
       this.difficulty+=deltadifficulty
