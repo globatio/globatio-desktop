@@ -25,6 +25,8 @@ load(){
     this.maincore.mainchain.updateWalletAssets(this.maincore.wallet)
     this.maincore.wallet.updateBalance()
     console.log('Wallet balance',this.maincore.wallet.balance)
+    this.settings.walletfilepath=this.maincore.wallet.filepath
+    this.storeSettings()
 
    
 }
