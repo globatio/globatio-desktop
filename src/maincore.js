@@ -99,7 +99,7 @@ class Maincore extends P2PNode{
     //console.log(self.nonce,newblock.hash,target,newblock.hash.localeCompare(target))
                
     if (newblock.hash.localeCompare(target)<0){
-    console.log((`averageblocktime: ${newblock.timestamp-previousblock.timestamp} difficulty: ${newblock.difficulty} blockreward: ${self.blockreward}`))
+    console.log((`blocktime: ${newblock.timestamp-previousblock.timestamp} difficulty: ${newblock.difficulty} blockreward: ${self.blockreward}`))
                 console.log('time',newblock.timestamp)
                     
                 
