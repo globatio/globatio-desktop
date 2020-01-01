@@ -209,7 +209,7 @@ class Maincore extends P2PNode{
                 if (arg[index]=='PROPAGATING_MAINCHAINBLOCK'){
         
   
-                        if (!self.validateMainchainBlock(arg[index+1])){
+                        if (!self.validatePropagatingMainchainBlock(arg[index+1])){
 
                             self.peersvalidity[peerinfo.ip]=false
                             self.longestchainpeer={chainlength:0}
@@ -236,10 +236,10 @@ class Maincore extends P2PNode{
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
 
-validateMainchainBlock(mainchainblockstring){
+validatePropagatingMainchainBlock(mainchainblockstring){
     console.log('validating mainchain block',mainchainblockstring)
     let block=Utility.parse(mainchainblockstring)
-    if (!this.mainchain.validateHeader(block,this.mainchain.lastBlock()))
+    if (!this.mainchain.validateHeader(block,this.mainchain.lastBlock(),this.difficulty))
     {
         return false
     }
