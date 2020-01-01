@@ -340,10 +340,11 @@ validateLongestMainchainHeaders(mainchainheader){
                     }
                     averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL;
             
-                    let tmpdeltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/averageblocktime);
-                    tmpdeltadifficulty=Math.min(tmpdeltadifficulty,4)
+                    //let tmpdeltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/averageblocktime);
+                    //tmpdeltadifficulty=Math.min(tmpdeltadifficulty,4)
             
-                    tmpdifficulty+=tmpdeltadifficulty*tmpdifficulty
+                    //tmpdifficulty+=tmpdeltadifficulty*tmpdifficulty
+                  tmpdifficulty=parseInt(Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*tmpdifficulty)
                     
                     tmpdifficulty=Math.max(tmpdifficulty,1)
  
@@ -440,10 +441,8 @@ tuningDifficulty() {
         averageblocktime += this.mainchain.getBlock(i).timestamp-this.mainchain.getBlock(i-1).timestamp
       }
       averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL
-      let deltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/averageblocktime)
-      deltadifficulty=Math.min(deltadifficulty,4)
-
-      this.difficulty+=deltadifficulty*this.difficulty
+      //let deltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/averageblocktime)
+      this.difficulty=parseInt(Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*this.difficulty)
       
       this.difficulty=Math.max(this.difficulty,1)
       console.log((`averageblocktime: ${averageblocktime} delta: ${deltadifficulty} difficulty: ${this.difficulty} blockreward: ${this.blockreward}`))
