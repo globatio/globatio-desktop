@@ -367,7 +367,8 @@ validateLongestMainchainHeaders(mainchainheader){
         }
 
             console.log('validating header',headers[i].id)
-            if (!this.mainchain.validateHeader(headers[i],this.getSupposedBlockHeader(headers[i].id-1))){
+            let previousheader=this.getSupposedBlockHeader(headers[i].id-1)
+            if (!this.mainchain.validateHeader(headers[i],previousheader,headers[i].difficulty)){
                 console.log('longest chain headers is corrupt')
 
                 return false
