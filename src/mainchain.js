@@ -179,6 +179,9 @@ class Mainchain {
   }
 //------------------------------------------------------------
   validateHeader(header,previousheader){
+    let base =((Math.pow(2,16)-1) *Math.pow(2,232)/header.difficulty).toString(16)
+    let target='0'.repeat(64-base.length)+base
+    
     if ((header.id!==previousheader.id+1)||(header.timestamp<previousheader.timestamp)||(header.previoushash!==previousheader.hash)) {
       console.log('wrong basic info',header.id,previousheader.id,header.timestamp,previousheader.timestamp,header.previoushash,previousheader.hash)
       console.log()
@@ -186,6 +189,9 @@ class Mainchain {
     } else if (Utility.computeHash(`${header.timestamp}${header.id}${header.previoushash}${header.nonce}${header.difficulty}${header.root}`).toString()!=header.hash) {
       console.log('wrong hash')
       return false
+    } else if (header.hash.localeCompare(target)>=0) {
+	console.log('inaccurate difficulty')
+    return false
 
     } else {
       return true
