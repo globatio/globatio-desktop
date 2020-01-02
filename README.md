@@ -24,3 +24,7 @@ $ npm install
 ```
 $ npm start
 ```
+
+### Sample image of globatio desktop
+
+![globatio desktop](globatio.png)
