@@ -460,20 +460,22 @@ tuningDifficulty() {
 
   synchronize(){
     if ((this.mainchain.chainLength() % (this.mainchain.confirmationlayer*2)) == 0){
+    let self=this
           setTimeout(function (){
-            this.sendSwarm('REQUEST_MAINCHAINLENGTH;END;')
+            self.sendSwarm('REQUEST_MAINCHAINLENGTH;END;')
             //console.log('confirmation layer',core.maincore)
           }, 1000);
           setTimeout(function (){
-            console.log('longest chain peer',this.longestchainpeer)
+            console.log('longest chain peer',self.longestchainpeer)
           }, 5000);
 
           setTimeout(function (){
-            this.getLongestMainchainHeaders()
+            self.getLongestMainchainHeaders()
+            console.log('saving mainchain')
+            self.mainchain.save()
           }, 10000);
         
-        console.log('saving mainchain')
-        this.mainchain.save()
+
     }
 
   }
