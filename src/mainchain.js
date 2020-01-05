@@ -189,11 +189,11 @@ class Mainchain {
       console.log('wrong hash')
       return false
     } else if (header.difficulty==validationdifficulty) {
-	    
+	let base =((Math.pow(2,16)-1) *Math.pow(2,232)/header.difficulty).toString(16)
+    	let target='0'.repeat(64-base.length)+base    
 	if (header.hash.localeCompare(target)>=0){
 		
-    let base =((Math.pow(2,16)-1) *Math.pow(2,232)/header.difficulty).toString(16)
-    let target='0'.repeat(64-base.length)+base
+
     console.log('inaccurate difficulty')
     return false
 	}    
