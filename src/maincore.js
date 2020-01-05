@@ -446,7 +446,7 @@ tuningDifficulty() {
       this.difficulty=parseInt(Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*this.difficulty)
       
       this.difficulty=Math.max(this.difficulty,1)
-      console.log((`averageblocktime: ${averageblocktime} delta: ${deltadifficulty} difficulty: ${this.difficulty} blockreward: ${this.blockreward}`))
+      console.log((`averageblocktime: ${averageblocktime} difficulty: ${this.difficulty} blockreward: ${this.blockreward}`))
 
     
   }
