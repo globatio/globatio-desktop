@@ -29,7 +29,7 @@ constructor(channel) {
 async start(){
 
     const self=this
-    setInterval( this.mines , 10);
+    setInterval( this.mines , 50);
 
     const port = await getPort()
 
