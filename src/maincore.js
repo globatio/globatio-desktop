@@ -459,7 +459,7 @@ tuningDifficulty() {
   }
 
   synchronize(){
-    if ((this.mainchain.chainLength() % (this.mainchain.confirmationlayer*2)) == 0){
+    if ((parseInt(this.mainchain.chainLength()/2) % this.mainchain.confirmationlayer) == 0){
     let self=this
           setTimeout(function (){
             self.sendSwarm('REQUEST_MAINCHAINLENGTH;END;')
