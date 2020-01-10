@@ -24,5 +24,5 @@ $ npm install
 ### to run on testnet
 
 ```
-$ npm start
+$ npm testnet
 ```
