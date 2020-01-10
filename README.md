@@ -21,7 +21,7 @@ $ cd globatio-desktop
 $ npm install
 ```
 
-### Run the app
+### to run on testnet
 
 ```
 $ npm start
