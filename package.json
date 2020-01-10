@@ -4,7 +4,7 @@
   "description": "A globatio wallet along with an integrated lightweight miner",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "testnet": "electron . testnet"
   },
   "repository": "https://github.com/globatio/globatio-desktop",
   "keywords": [
