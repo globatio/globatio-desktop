@@ -2,6 +2,8 @@
 
 globatio v0.1.0 ALPHA
 
+This project is still alpha, development and testing is ongoing.  Be aware that breaking changes may occur.
+
 What is globatio?
 ----------------
 
