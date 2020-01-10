@@ -16,7 +16,7 @@ const Wallet = require('./wallet');
 class Core {
     constructor() {
         this.settings= new Settings()
-        this.maincore=new Maincore(this.settings.walletfilepath,path.resolve(__dirname,'../mainchain'),'globatio-mainchain')
+        this.maincore=new Maincore(this.settings.walletfilepath,path.resolve(__dirname,'../mainchain'),'globatio-mainchain-testnet')
 
     }
 load(){
