@@ -12,6 +12,7 @@ var level = require('level')
 class Mainchain {
   constructor(mainchainfolder) {
     this.confirmationlayer=120
+    this.synchronizationlayer=20
 
     this.activeblocksfileid=0
     const mainchainfile=mainchainfolder+'/mainchain'
