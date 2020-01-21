@@ -2,27 +2,16 @@ const {MAINCHAIN_GENESIS_BLOCK_REWARD,MAINCHAIN_BLOCK_TIME,
     MAINCHAIN_DIFFICULTY_TUNING_INTERVAL,
     MAINCHAIN_REWARD_TUNING_INTERVAL,
     MAINCHAIN_BLOCK_MAX_SEIZE}=require('./defaults')
-  
-  
+    
 const Utility = require('./utility')
 const Transaction =require('./transaction')
 const Block = require('./block')
 const Wallet = require('./wallet')
 const Mainchain = require('./mainchain')
-  
 const AppendableFile = require('./appendablefile')
-  
 const Jsonfile = require('jsonfile')
-
 const fs = require('fs')
-  
-
-
-
-
 const P2PNode=require('./p2pnode.js')
-
-
 
 class Maincore extends P2PNode{
     constructor(walletfile,mainchainfolder,channel) {
@@ -31,7 +20,7 @@ class Maincore extends P2PNode{
     this.wallet=new Wallet(walletfile)
     this.mainchain=new Mainchain(mainchainfolder)
 
-    this.difficulty=-1
+    this.difficulty=-1.0
     this.nonce=0
     this.mainchainfolder=mainchainfolder
     this.blockreward=-1
@@ -54,12 +43,7 @@ class Maincore extends P2PNode{
         //-----------------------------------------------------------
         // mining code starts
         //-----------------------------------------------------------
-
-                
-
         if (self.newtransactions.length==0){
-
-
                 //TODO take into account block length
 
                 self.newtransactions.push(new Transaction({inputs:[],outputs:[
@@ -70,12 +54,12 @@ class Maincore extends P2PNode{
             }
     let previousblock=self.mainchain.lastBlock()
     let difficulty=self.difficulty
-    let currenttime;
+    let currenttime
     let base =((Math.pow(2,16)-1) *Math.pow(2,232)/difficulty).toString(16)
     let target='0'.repeat(64-base.length)+base
 
 
-    let starttime = Date.now();
+    let starttime = Date.now()
     let newblock =new Block({
                           timestamp:starttime,
                           id:previousblock.id+1,
@@ -344,9 +328,9 @@ validateLongestMainchainHeaders(mainchainheader){
                     //tmpdeltadifficulty=Math.min(tmpdeltadifficulty,4)
             
                     //tmpdifficulty+=tmpdeltadifficulty*tmpdifficulty
-                  tmpdifficulty=parseInt(Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*tmpdifficulty)
+                  tmpdifficulty=Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*tmpdifficulty
                     
-                    tmpdifficulty=Math.max(tmpdifficulty,1)
+                    tmpdifficulty=Math.max(tmpdifficulty,1.0)
  
             
                 
@@ -382,10 +366,6 @@ validateLongestMainchainHeaders(mainchainheader){
 
         //-------------------------------------------------------------------
     }
-    
-
-    
-
     return true
 }
 //-------------------------------------------------------------------
@@ -443,9 +423,9 @@ tuningDifficulty() {
       }
       averageblocktime /= MAINCHAIN_DIFFICULTY_TUNING_INTERVAL
       //let deltadifficulty=Math.round((MAINCHAIN_BLOCK_TIME-averageblocktime)/averageblocktime)
-      this.difficulty=parseInt(Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*this.difficulty)
+      this.difficulty=Math.max(Math.min(MAINCHAIN_BLOCK_TIME/averageblocktime,4),1/4)*this.difficulty
       
-      this.difficulty=Math.max(this.difficulty,1)
+      this.difficulty=Math.max(this.difficulty,1.0)
       console.log((`averageblocktime: ${averageblocktime} difficulty: ${this.difficulty} blockreward: ${this.blockreward}`))
 
     
