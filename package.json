@@ -1,12 +1,12 @@
 {
-  "name": "globatio-desktop",
+  "name": "globatiotools",
   "version": "0.1.0",
   "description": "A globatio wallet along with an integrated lightweight miner",
   "main": "src/main.js",
   "scripts": {
     "test": "electron . testnet"
   },
-  "repository": "https://github.com/globatio/globatio-desktop",
+  "repository": "https://github.com/globatio/globatiotools",
   "keywords": [
     "globatio",
     "miner",
