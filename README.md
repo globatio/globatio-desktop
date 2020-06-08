@@ -4,7 +4,7 @@ globatio tools v0.1.0 ALPHA
 
 This project is still alpha, development and testing is ongoing.  Be aware that breaking changes may occur.
 
-What is globatio?
+What is globatio ?
 ----------------
 
 It is an experimental digital currency based on a distributed ledger consisting of a mainchain and multiple sidechains. Initially, the native cryptocurrency is created in the mainchain through a very secure decentralized (but also slow and restricted) proof-of-work mining and then can be stacked to initiate or participate in sidechains with very fast proof-of-stack mining.
