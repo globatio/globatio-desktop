@@ -16,8 +16,8 @@ In particular, globatio desktop is a wallet along with an integrated lightweight
 ### Get the code
 
 ```
-$ git clone https://github.com/globatio/globatio-desktop.git
-$ cd globatio-desktop
+$ git clone https://github.com/globatio/globatiotools.git
+$ cd globatiotools
 $ npm install
 ```
 
