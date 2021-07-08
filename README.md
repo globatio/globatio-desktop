@@ -13,3 +13,7 @@ $ npm install
 ```
 $ npm test
 ```
+
+### Sample image of globatio desktop
+
+![globatio desktop](globatio.png)
